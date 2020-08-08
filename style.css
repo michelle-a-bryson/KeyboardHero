@@ -1,0 +1,44 @@
+body {
+	text-align: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 100vh;
+	overflow: hidden;
+  font-family: 'Courier Prime'
+}
+h1 {
+	margin-top: 1em;
+	color: white;
+}
+/* #level-icons {
+  justify-content: center;
+  display: grid;
+  grid-template-columns: 19% 19% 19% 19% 19%;
+  grid-gap: 20px;
+} */
+#level-icons {
+	overflow-y: auto;
+	height: 80vh;
+  padding: 0 5vw;
+}
+.stage {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	color: white;
+	font-size: 1.5em;
+	background: linear-gradient(to right, #11cbb2 0%, #2925fc 100%);
+	padding: 0.2em 1em;
+	border-radius: 1em;
+	margin: 1em 0;
+	text-decoration: none;
+}
+
+button {
+  padding: 1vw;
+  width: 100%;
+  height: 100%;
+  font-family: "Courier Prime";
+  font-size: 10vw;
+  border-radius: 1vw;
+}
