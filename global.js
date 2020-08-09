@@ -1,5 +1,6 @@
 var bg, bg2, textImg, bg3, score = 0, misses = 0, feedbackTextArray = [];
 
+//Load all images
 function preload(){
   bg = loadImage("/images/bg.png")
   bg2 = loadImage("/images/bg2.png")
@@ -8,6 +9,7 @@ function preload(){
   bgwin = loadImage("/images/bgwin.jpg")
 }
 
+//Create key object
 class Key{
 	constructor(letter, zone, time){
     this.text = letter;
@@ -79,6 +81,7 @@ class Key{
   }
 }
 
+//Create feedback text object
 class FeedbackText {
   constructor(text){
     this.x = width/8;

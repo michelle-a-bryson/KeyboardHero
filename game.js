@@ -7,6 +7,7 @@ var playing = false;
 var songName = location.hash.substr(1);
 console.log(songName);
 
+//Eight zones for the eight touch typing zones
 var zones = [
             ["q", "a", "z"],
             ["w", "s", "x",],
@@ -18,14 +19,14 @@ var zones = [
             ["p", ";", "/"]
             ];
 
-
+//Load the audio and level text file
 function preload() {
   soundFormats('mp3', 'ogg');
   song = loadSound(`/audio/${songName}.mp3`);
 	file = loadStrings(`/levels/${songName}.txt`);
-  feedbackTextArray.push(new FeedbackText("Get Ready!"));
 }
 
+//Setup the canvas, load in the background image, and generate keys
 function setup(){
   let canvas = createCanvas(windowWidth, windowHeight);
   canvas.position(0,0);
@@ -56,11 +57,14 @@ function setup(){
     keys[round(parseFloat(parts[1]))] = new Key(parts[0], zoneNumber, round(parseFloat(parts[1])));
 		keysarr.push(new Key(parts[0], zoneNumber, round(parseFloat(parts[1]))))
 	}
+  //Store time when game play begins
   startTime = millis();
 }
 
 function draw(){
   background(bg2);
+
+  //PLay audio
   if (!playing){
     song.play();
 		song.onended(function(){
@@ -95,10 +99,14 @@ function draw(){
     }
   }
 
+  //Find number of milliseconds since the game has started
   let currentTime = millis()-startTime;
+
+  //Get all notes within three seconds of the current time
 	keysToShow = getNotes(currentTime, 3000);
 	
 
+  //Display notes and check for collisions
   for (let i=0; i<keysToShow.length; i++){ 
     if (keysToShow[i].y < height && !(keysToShow[i].done)){
       keysToShow[i].show();
@@ -109,9 +117,7 @@ function draw(){
   
 }
 
-window.addEventListener('keydown', (e) => { keys[e.key] = true; });
-window.addEventListener('keyup', (e) => { delete keys[e.key]; });
-
+//Find keys that are within three seconds of current time
 function getNotes(currentTime, delay){
 	let ret = [];
 
