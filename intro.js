@@ -28,7 +28,7 @@ function drawIntro(){
 
   introWindow.textAlign(CENTER, TOP);
   introWindow.textSize(30);
-  introWindow.text("\nWelcome hero! You have come at a great time! \nDefeat the Note Queen and save all music and technology!\n (Please come up with something better - My brain sob)", introWindow.width/2, introWindow.height/4)
+  introWindow.text("\nWelcome hero! You have come at a great time! \nThe evil Note Queen has scrambled some of the best \nmusic pieces in the world! Help us rearrange the songs\n  by hitting the correct key when the right beat comes!", introWindow.width/2, introWindow.height/4)
 
   startButton = createButton("Start")
   startButton.position(width/2 - textWidth("PLAY")*3, height/2 + 120);

@@ -33,8 +33,3 @@ for (let l of Object.entries(levels)){
 	</div>`;
 }
 
-//Me trying to figure out how to use if + else with dictionaries in js 😰
-if(levels["Firework, Katy Perry"]){
-   //The dict 10 exist
-   console.log(levels["Firework, Katy Perry"]);
-}
