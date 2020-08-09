@@ -19,7 +19,7 @@ class Key{
       this.y = 100;
     }
     else {
-      this.y = 0;
+      this.y = 100;
     }
     this.size = 55;
   }
@@ -43,13 +43,12 @@ class Key{
     text(this.text, this.x + this.size - textWidth(this.text), this.y+ 3/4 * this.size);
   }
 
+  // move(startTime, currentTime, topHi, bottomHi){
+	// 	this.y = map(currentTime, startTime, startTime+3000, topHi, bottomHi);
+  // }
+
   move(){
-    if (this.y < height-100){
-      this.y+=2;
-    }
-    else {
-      //this.y = round(random(2, 5)) * -200;
-    }
+    this.y+=5;
   }
 
 	test(keys){
@@ -60,6 +59,12 @@ class Key{
 	}
 
   checkCollisions(){
-    return collideRectRect(width/2, height-100, width*0.55, 60, this.x, this.y, this.size, this.size)
+    if (keyIsPressed){
+      if (collideRectRect(width/2, height-100, width*0.55, 60, this.x, this.y, this.size, this.size) && key == this.text){
+        console.log("YAY");
+        this.done = true;
+      }
+    }
+    
   }
 }

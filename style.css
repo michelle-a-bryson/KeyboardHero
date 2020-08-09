@@ -1,4 +1,5 @@
 body {
+  margin: 0;
 	text-align: center;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -41,4 +42,20 @@ button {
   font-family: "Courier Prime";
   font-size: 10vw;
   border-radius: 1vw;
+}
+
+#p5_loading {
+  margin: 0;
+  background:linear-gradient(to right, #cb11cb 0%, #2575fc 100%);
+	width: 100vw;
+	height: 100vh;
+	/* display: flex; */
+	text-align: center;
+	line-height: 100vh;
+	font-size: 3em;
+  color: white;
+}
+
+#p5_loading p{
+	margin-left: 40vw;
 }

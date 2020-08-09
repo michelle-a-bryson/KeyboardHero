@@ -31,7 +31,7 @@ function setup(){
   //Create the key zone icons
   keyZoneIcons = [];
   for (let i=0; i<8; i++){
-   keyZoneIcons.push(new Key("", i));
+    keyZoneIcons.push(new Key("", i));
   }
 
   //Generate keys
@@ -49,15 +49,8 @@ function setup(){
     }
 
     keys[round(parseFloat(parts[1]))] = new Key(parts[0], zoneNumber, round(parseFloat(parts[1])));
-    //keys.push(new Key(parts[0], zones[parts[0]], parseFloat(parts[1])))
 	}
-  startTime = new Date();
-}
-
-// gets the notes for the next 10 seconds
-function getCurrentNotes(){
-	
-
+  startTime = millis();
 }
 
 function draw(){
@@ -76,28 +69,27 @@ function draw(){
     keyZoneIcons[i].show();
   }
 
-
-  let currentTime = new Date()-startTime;
-  console.log(currentTime);
-  if (keys[currentTime] != undefined){
-    keysToShow.push()
-    keys[currentTime].show();
-    keys[currentTime].move();     
+  let delay = 3000;
+  let currentTime = millis()-startTime;
+  let currentKeyTime = parseInt(Object.keys(keys)[keyIndex]);
+  currentKeyTime = currentKeyTime - delay;
+  
+  
+  if (currentKeyTime >= currentTime-10 && currentKeyTime <= currentTime+10 || currentKeyTime == currentTime) {
+    keysToShow.push(keys[currentKeyTime+delay]); 
+    keyIndex++;
   }
+
+  for (let i=0; i<keysToShow.length; i++){ 
+    if (keysToShow[i].y < height-10 && !(keysToShow[i].done)){
+      keysToShow[i].show();
+      keysToShow[i].move();
+      //keysToShow[i].move(startTime, currentTime, 100, height-100);
+      keysToShow[i].checkCollisions();
+    }
+  }
+  
 }
 
 window.addEventListener('keydown', (e) => { keys[e.key] = true; });
 window.addEventListener('keyup', (e) => { delete keys[e.key]; });
-
-function keyPressed(){
-  console.log(key);
-  /*
-  for (let i=0; i<allKeys.length; i++){
-    if (allKeys[i].y > 0 && allKeys[i].y < windowHeight){
-       if (allKeys[i].checkCollisions() && allKeys[i].text == key){        
-        console.log("win!");
-      }
-    }
-  }
-  */
-}

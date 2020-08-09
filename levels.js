@@ -26,7 +26,7 @@ levels = {
 
 
 for (let l of Object.entries(levels)){
-	levelIcons.innerHTML += `<a class="stage" href="/game.html#${l[0].split(',')[0]}">
+	levelIcons.innerHTML += `<a class="stage" href="/game.html#${l[0].split(',')[0].replace(/\s/g, "")}">
 		<p>${l[0]}</p>
 		<p>${l[1].highscore}</p>
 		<p>${l[1].difficulty}</p>

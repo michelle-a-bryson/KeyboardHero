@@ -20,26 +20,26 @@ function drawIntro(){
   introWindow.rect(0,0, introWindow.width, introWindow.height, 15);
   
   introWindow.fill("white");
-  introWindow.textFont("Courier Prime");
+  introWindow.textFont("'Tomorrow', sans-serif");
   introWindow.textSize(70);
-  introWindow.image(textImg,introWindow.width/20, introWindow.height/10, 500, 100);
+  introWindow.image(textImg,introWindow.width/20 + 260, introWindow.height/10 - 25, 500, 100);
   //introWindow.textAlign(CENTER, TOP);
   //introWindow.text("Keyboard Hero", introWindow.width/2, introWindow.height/10);
 
-  introWindow.textAlign(CENTER, TOP);
-  introWindow.textSize(30);
-  introWindow.text("\nWelcome hero! You have come at a great time! \nThe evil Note Queen has scrambled some of the best \nmusic pieces in the world! Help us rearrange the songs\n  by hitting the correct key when the right beat comes!", introWindow.width/2, introWindow.height/4)
+  introWindow.textAlign(LEFT, TOP);
+  introWindow.textSize(25);
+  introWindow.text("\nWelcome to Keyboard Hero!\nAre you ready to harness the power of music and enhance your typing skills? \nInspired by the classic game ‘Guitar Hero,’\n Keyboard Hero gives you all the fun of a classic video game with a typing game twist! \n Say goodbye to all those boring typing games and get ready \nto increase your words per minute while having A Major adventure! ", introWindow.width/10, introWindow.height/4)
 
   startButton = createButton("Start")
-  startButton.position(width/2 - textWidth("PLAY")*3, height/2 + 120);
+  startButton.position(width/2 - textWidth("PLAY")*2, height/2 + 190);
   //startButton.position(0,0);
-  startButton.size(200, 100)
+  startButton.size(100, 50)
   startButton.style("background", "linear-gradient(to right, #cb11cb 0%, #2575fc 100%)");
   startButton.style("border","0px");
   startButton.style("border-radius", "10px");
   startButton.style("font-family", "Courier Prime");
   startButton.style("color", "white");
-  startButton.style("font-size", "45px");
+  startButton.style("font-size", "25px");
   startButton.style("padding", "0px");
   startButton.mousePressed(function(){window.location.href='/levels.html'});
 
