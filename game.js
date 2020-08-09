@@ -1,5 +1,7 @@
 var song, startTime, file;
 var keyZoneIcons, keys = {}, keysToShow = [];
+var keysarr = [];
+var leftPointer = 0;
 var keyIndex = 0;
 var playing = false;
 var songName = location.hash.substr(1);
@@ -21,6 +23,7 @@ function preload() {
   soundFormats('mp3', 'ogg');
   song = loadSound(`/audio/${songName}.mp3`);
 	file = loadStrings(`/levels/${songName}.txt`);
+  feedbackTextArray.push(new FeedbackText("Get Ready!"));
 }
 
 function setup(){
@@ -48,7 +51,10 @@ function setup(){
       }
     }
 
+		if (songName == 'ThriftShop') parts[1] = parseFloat(parts[1]) - 30000;
+
     keys[round(parseFloat(parts[1]))] = new Key(parts[0], zoneNumber, round(parseFloat(parts[1])));
+		keysarr.push(new Key(parts[0], zoneNumber, round(parseFloat(parts[1]))))
 	}
   startTime = millis();
 }
@@ -57,34 +63,46 @@ function draw(){
   background(bg2);
   if (!playing){
     song.play();
+		song.onended(function(){
+			localStorage.setItem(songName, "" + Math.round(100*0.5*score/keysarr.length));
+			window.location.href = "/finish.html";
+		});
     playing = true;
-  }  
+  }
+  
+  //Score and misses text on top of screen
+  fill("white");
+  textSize(50);
+  textFont("Courier Prime");
+  text(`Score: ${score}`, textWidth(`Score: ${score}`)/2 + 10, 50);
+  text(`Misses: ${misses}`, textWidth(`Misses: ${misses}`)/2 + 10, 110);
   
   //Draw bottom bar
   rectMode(CENTER);
   fill("purple");
   rect(width/2, height-100, width*0.55, 60, 10);
   
+  //Draw top eight boxes where other keys come out
   for (let i=0; i<keyZoneIcons.length; i++){
     keyZoneIcons[i].show();
   }
-
-  let delay = 3000;
-  let currentTime = millis()-startTime;
-  let currentKeyTime = parseInt(Object.keys(keys)[keyIndex]);
-  currentKeyTime = currentKeyTime - delay;
   
-  
-  if (currentKeyTime >= currentTime-10 && currentKeyTime <= currentTime+10 || currentKeyTime == currentTime) {
-    keysToShow.push(keys[currentKeyTime+delay]); 
-    keyIndex++;
+  //Display feedback text
+  for (let i=0; i<feedbackTextArray.length;i++){
+    if (feedbackTextArray[i].y > height/2){
+      feedbackTextArray[i].move();
+      feedbackTextArray[i].show();
+    }
   }
 
+  let currentTime = millis()-startTime;
+	keysToShow = getNotes(currentTime, 3000);
+	
+
   for (let i=0; i<keysToShow.length; i++){ 
-    if (keysToShow[i].y < height-10 && !(keysToShow[i].done)){
+    if (keysToShow[i].y < height && !(keysToShow[i].done)){
       keysToShow[i].show();
-      keysToShow[i].move();
-      //keysToShow[i].move(startTime, currentTime, 100, height-100);
+      keysToShow[i].move(currentTime, 100, height-100, 3000);
       keysToShow[i].checkCollisions();
     }
   }
@@ -93,3 +111,15 @@ function draw(){
 
 window.addEventListener('keydown', (e) => { keys[e.key] = true; });
 window.addEventListener('keyup', (e) => { delete keys[e.key]; });
+
+function getNotes(currentTime, delay){
+	let ret = [];
+
+	while (keysarr[leftPointer].time < currentTime - 1000) leftPointer++;
+	let x = leftPointer;
+	while (x < keysarr.length && keysarr[x].time < currentTime + delay){
+		ret.push(keysarr[x]);
+		x++;
+	}
+	return ret;
+}
